@@ -1,0 +1,10 @@
+body {
+    background-color: #121212;
+}
+
+.canvas {
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    height: 700px;
+}
