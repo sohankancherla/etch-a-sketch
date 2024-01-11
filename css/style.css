@@ -56,6 +56,28 @@ body {
     border: 3px solid #121212;
 }
 
+input[type='range'] {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #bb86fc;
+}
+  
+input[type='range']::-webkit-slider-runnable-track {
+    height: 10px;
+    border: 1px solid #121212;
+    border-radius: 25px;
+    background: #ffffff;
+}
+  
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 25px;
+    margin-top: -8px;
+    background: #121212;
+}
+
 .canvas {
     display: flex;
     flex-direction: column;
