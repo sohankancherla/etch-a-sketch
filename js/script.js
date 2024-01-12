@@ -1,4 +1,6 @@
+let tool = "pen";
 const canvas = document.querySelector(".canvas")
+const color = document.querySelector("#color-picker")
 
 for (let i=0; i<16; i++) {
     const column = document.createElement("div")
@@ -9,6 +11,13 @@ for (let i=0; i<16; i++) {
         square.style.backgroundColor = "#ffffff";
         square.style.flex = 1;
         column.appendChild(square);
+
+        square.addEventListener("mouseover", () => {
+            if (tool === "pen") {
+                console.log(color);
+                square.style.backgroundColor = color.value;
+            }
+        })
     }
     canvas.appendChild(column);
 }
