@@ -15,7 +15,7 @@ body {
     color: #121212;
     margin-top: 5%;
     flex: 1;
-    width: 700px;
+    width: 880px;
     border-radius: 8px;
 }
 
@@ -33,6 +33,11 @@ body {
     background-color: #bb86fc;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 160px;
+    border-radius: 8px;
 }
 
 #color-picker {
@@ -40,10 +45,11 @@ body {
     -moz-appearance: none;
     appearance: none;
     background-color: transparent;
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
     border: none;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 #color-picker::-webkit-color-swatch {
@@ -56,26 +62,42 @@ body {
     border: 3px solid #121212;
 }
 
+button {
+    background-color: #bb86fc;
+    border: 2px solid #121212;
+    border-radius: 4px;
+    padding: 8px;
+    color: #121212;
+    font-family: Inter, sans-serif;
+    font-weight: 600;
+    width: 140px;
+}
+
 input[type='range'] {
     appearance: none;
     -webkit-appearance: none;
     background-color: #bb86fc;
+    margin-top: 30px;
 }
   
 input[type='range']::-webkit-slider-runnable-track {
-    height: 10px;
-    border: 1px solid #121212;
+    height: 2px;
     border-radius: 25px;
-    background: #ffffff;
+    background: #585353;
 }
   
 input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     border-radius: 25px;
-    margin-top: -8px;
+    margin-top: -10px;
     background: #121212;
+}
+
+#grid-label {
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .canvas {
