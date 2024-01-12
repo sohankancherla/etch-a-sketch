@@ -1,25 +1,51 @@
-//pen: 0, rainbow: 1, darken: 2, lighten: 3, eraser: 4, none: 5
-let tool = 5;
-const canvas = document.querySelector(".canvas");
-const color = document.querySelector("#color-picker");
+function randomNumber(max) {
+    return Math.floor(Math.random() * (max + 1));
+}
 
-for (let i=0; i<16; i++) {
-    const column = document.createElement("div")
-    column.style.flex = 1;
-    column.style.display = "flex";
-    for (let j=0; j<16; j++) {
-        const square = document.createElement("div");
-        square.style.backgroundColor = "#ffffff";
-        square.style.flex = 1;
-        column.appendChild(square);
+function randomColor() {
+    const r = randomNumber(255);
+    const g = randomNumber(255);
+    const b = randomNumber(255);
+    return `rgb(${r},${g},${b})`;
+}
 
-        square.addEventListener("mouseover", () => {
-            if (tool === 0) {
-                square.style.backgroundColor = color.value;
-            }
-        })
+function parseColor(color) {
+    const regex = /rgb\((\d+),\s*(\d+),\s*(\d+)\)/;
+    const match = regex.exec(color);
+    return match;
+}
+
+function shade(value, dark) {
+    let newValue = 0;
+    if (dark) {
+        newValue = value - 25
+        if (newValue < 0) {
+            newValue = 0;
+        }  
     }
-    canvas.appendChild(column);
+    else {
+        newValue = value + 25
+        if (newValue > 255) {
+            newValue = 255;
+        } 
+    }
+    return newValue
+}
+
+function darkenColor(color) {
+    const match = parseColor(color);
+    const r = parseInt(match[1]);
+    const g = parseInt(match[2]);
+    const b = parseInt(match[3]);
+    return `rgb(${shade(r, true)},${shade(g, true)},${shade(b, true)})`;
+}
+
+function lightenColor(color) {
+    const match = parseColor(color);
+    const r = parseInt(match[1]);
+    const g = parseInt(match[2]);
+    const b = parseInt(match[3]);
+    return `rgb(${shade(r, false)},${shade(g, false)},${shade(b, false)})`;
 }
 
 function clickedButton(button_num) {
@@ -56,6 +82,42 @@ function exitButton(button_num) {
     else {
         buttons[button_num].style.backgroundColor = "#ffffff";
     }
+}
+
+//pen: 0, rainbow: 1, darken: 2, lighten: 3, eraser: 4, none: 5
+let tool = 5;
+const canvas = document.querySelector(".canvas");
+const color = document.querySelector("#color-picker");
+
+for (let i=0; i<16; i++) {
+    const column = document.createElement("div")
+    column.style.flex = 1;
+    column.style.display = "flex";
+    for (let j=0; j<16; j++) {
+        const square = document.createElement("div");
+        square.style.backgroundColor = "#ffffff";
+        square.style.flex = 1;
+        column.appendChild(square);
+
+        square.addEventListener("mouseover", () => {
+            if (tool === 0) {
+                square.style.backgroundColor = color.value;
+            }
+            else if (tool === 1) {
+                square.style.backgroundColor = randomColor();
+            }
+            else if (tool === 2) {
+                square.style.backgroundColor = darkenColor(square.style.backgroundColor);
+            }
+            else if (tool === 3) {
+                square.style.backgroundColor = lightenColor(square.style.backgroundColor);
+            }
+            else if (tool === 4) {
+                square.style.backgroundColor = "#ffffff";
+            }
+        })
+    }
+    canvas.appendChild(column);
 }
 
 const buttons = document.querySelectorAll("button");
