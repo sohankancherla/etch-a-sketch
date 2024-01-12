@@ -126,6 +126,7 @@ const rainbow = document.querySelector("#rainbow-btn");
 const darken = document.querySelector("#darken-btn");
 const ligthen = document.querySelector("#lighten-btn");
 const erase = document.querySelector("#erase-btn");
+const clear = document.querySelector("#clear-btn");
 
 pen.addEventListener("click", () => clickedButton(0));
 pen.addEventListener("mouseover", () => hoveredButton(0));
