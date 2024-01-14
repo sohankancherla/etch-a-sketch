@@ -84,6 +84,16 @@ function exitButton(button_num) {
     }
 }
 
+function clearGrid() {
+    columns = canvas.childNodes;
+    for (let i=0; i<16; i++) {
+        squares = columns[i].childNodes;
+        for (let j=0; j<16; j++) {
+            squares[j].style.backgroundColor = "#ffffff";
+        }
+    }
+}
+
 //pen: 0, rainbow: 1, darken: 2, lighten: 3, eraser: 4, none: 5
 let tool = 5;
 const canvas = document.querySelector(".canvas");
@@ -143,5 +153,8 @@ ligthen.addEventListener("mouseout", () => exitButton(3));
 erase.addEventListener("click", () => clickedButton(4));
 erase.addEventListener("mouseover", () => hoveredButton(4));
 erase.addEventListener("mouseout", () => exitButton(4));
+clear.addEventListener("click", () => clearGrid());
+clear.addEventListener("mouseover", () => clear.style.backgroundColor = "#b1b1b1");
+clear.addEventListener("mouseout", () => clear.style.backgroundColor = "#ffffff");
 
 pen.click();
