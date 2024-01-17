@@ -19,7 +19,7 @@
 
 ## About The Project
 
-Etch-a-Sketch is a painting enviorment that mimics the style of the classic Etch A Sketch toy. Hover over the canvas to start painting and use the options on the left to get more creative. 
+Etch-a-Sketch is a painting environment that mimics the style of the classic Etch A Sketch toy. Hover over the canvas to start painting and use the options on the left to get more creative. 
 
 The project is part of [The Odin Project's Foundations course](https://www.theodinproject.com/lessons/foundations-etch-a-sketch).
 
@@ -35,7 +35,7 @@ Below is a list of the major tools and languages utilized:
 
 ## Try It
 
-[Visit Etch-a-Sketch](https://sohankancherla.github.io/rock-paper-scissors/)
+[Visit Etch-a-Sketch](https://sohankancherla.github.io/etch-a-sketch/)
 
 ## Authors
 
