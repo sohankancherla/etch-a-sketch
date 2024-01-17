@@ -94,8 +94,19 @@ function clearGrid() {
     }
 }
 
+function toggleGridLines(toggle) {
+    columns = canvas.childNodes;
+    for (let i=0; i<16; i++) {
+        squares = columns[i].childNodes;
+        for (let j=0; j<16; j++) {
+            squares[j].style.border = toggle ? "0.5px solid grey": "none";
+        }
+    }
+}
+
 //pen: 0, rainbow: 1, darken: 2, lighten: 3, eraser: 4, none: 5
 let tool = 5;
+let toggle_grid = false;
 const canvas = document.querySelector(".canvas");
 const color = document.querySelector("#color-picker");
 
@@ -137,6 +148,7 @@ const darken = document.querySelector("#darken-btn");
 const ligthen = document.querySelector("#lighten-btn");
 const erase = document.querySelector("#erase-btn");
 const clear = document.querySelector("#clear-btn");
+const toggle = document.querySelector("#grid-btn");
 
 pen.addEventListener("click", () => clickedButton(0));
 pen.addEventListener("mouseover", () => hoveredButton(0));
@@ -156,5 +168,37 @@ erase.addEventListener("mouseout", () => exitButton(4));
 clear.addEventListener("click", () => clearGrid());
 clear.addEventListener("mouseover", () => clear.style.backgroundColor = "#b1b1b1");
 clear.addEventListener("mouseout", () => clear.style.backgroundColor = "#ffffff");
+toggle.addEventListener("click", () => {
+    if (toggle_grid) {
+        toggle.style.backgroundColor = "#ffffff";
+        toggle.style.border = "2px solid #121212";
+        toggle.style.color = "#121212";
+        toggleGridLines(false);
+        toggle_grid = false;
+    }
+    else {
+        toggle.style.backgroundColor = "#121212";
+        toggle.style.border = "2px solid #ffffff";
+        toggle.style.color = "#ffffff"; 
+        toggleGridLines(true);
+        toggle_grid = true;
+    }
+});
+toggle.addEventListener("mouseover", () => {
+    if (toggle_grid) {
+        toggle.style.backgroundColor = "#404040";
+    }
+    else {
+        toggle.style.backgroundColor = "#b1b1b1";
+    }
+});
+toggle.addEventListener("mouseout", () => {
+    if (toggle_grid) {
+        toggle.style.backgroundColor = "#121212";
+    }
+    else {
+        toggle.style.backgroundColor = "#ffffff";
+    }
+});
 
 pen.click();
