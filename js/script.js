@@ -84,62 +84,77 @@ function exitButton(button_num) {
     }
 }
 
-function clearGrid() {
+function clearGrid(grid_size) {
     columns = canvas.childNodes;
-    for (let i=0; i<16; i++) {
+    for (let i=0; i<grid_size; i++) {
         squares = columns[i].childNodes;
-        for (let j=0; j<16; j++) {
+        for (let j=0; j<grid_size; j++) {
             squares[j].style.backgroundColor = "#ffffff";
         }
     }
 }
 
-function toggleGridLines(toggle) {
+function toggleGridLines(toggle, grid_size) {
     columns = canvas.childNodes;
-    for (let i=0; i<16; i++) {
+    for (let i=0; i<grid_size; i++) {
         squares = columns[i].childNodes;
-        for (let j=0; j<16; j++) {
+        for (let j=0; j<grid_size; j++) {
             squares[j].style.border = toggle ? "0.5px solid grey": "none";
         }
+    }
+}
+
+function removeGrid(){
+    let child = canvas.lastElementChild;
+    while (child) {
+        canvas.removeChild(child);
+        child = canvas.lastElementChild;
+    }
+}
+
+function createGrid(grid_size) {
+    removeGrid()
+    for (let i=0; i<grid_size; i++) {
+        const column = document.createElement("div")
+        column.style.flex = 1;
+        column.style.display = "flex";
+        for (let j=0; j<grid_size; j++) {
+            const square = document.createElement("div");
+            square.style.backgroundColor = "#ffffff";
+            if (toggle_grid) {
+                square.style.border = "0.5px solid grey";
+            }
+            square.style.flex = 1;
+            column.appendChild(square);
+    
+            square.addEventListener("mouseover", () => {
+                if (tool === 0) {
+                    square.style.backgroundColor = color.value;
+                }
+                else if (tool === 1) {
+                    square.style.backgroundColor = randomColor();
+                }
+                else if (tool === 2) {
+                    square.style.backgroundColor = darkenColor(square.style.backgroundColor);
+                }
+                else if (tool === 3) {
+                    square.style.backgroundColor = lightenColor(square.style.backgroundColor);
+                }
+                else if (tool === 4) {
+                    square.style.backgroundColor = "#ffffff";
+                }
+            })
+        }
+        canvas.appendChild(column);
     }
 }
 
 //pen: 0, rainbow: 1, darken: 2, lighten: 3, eraser: 4, none: 5
 let tool = 5;
 let toggle_grid = false;
+
 const canvas = document.querySelector(".canvas");
 const color = document.querySelector("#color-picker");
-
-for (let i=0; i<16; i++) {
-    const column = document.createElement("div")
-    column.style.flex = 1;
-    column.style.display = "flex";
-    for (let j=0; j<16; j++) {
-        const square = document.createElement("div");
-        square.style.backgroundColor = "#ffffff";
-        square.style.flex = 1;
-        column.appendChild(square);
-
-        square.addEventListener("mouseover", () => {
-            if (tool === 0) {
-                square.style.backgroundColor = color.value;
-            }
-            else if (tool === 1) {
-                square.style.backgroundColor = randomColor();
-            }
-            else if (tool === 2) {
-                square.style.backgroundColor = darkenColor(square.style.backgroundColor);
-            }
-            else if (tool === 3) {
-                square.style.backgroundColor = lightenColor(square.style.backgroundColor);
-            }
-            else if (tool === 4) {
-                square.style.backgroundColor = "#ffffff";
-            }
-        })
-    }
-    canvas.appendChild(column);
-}
 
 const buttons = document.querySelectorAll("button");
 const pen = document.querySelector("#pen-btn");
@@ -149,6 +164,8 @@ const ligthen = document.querySelector("#lighten-btn");
 const erase = document.querySelector("#erase-btn");
 const clear = document.querySelector("#clear-btn");
 const toggle = document.querySelector("#grid-btn");
+const gridSize = document.querySelector("#grid-size");
+const gridLabel = document.querySelector("#grid-label");
 
 pen.addEventListener("click", () => clickedButton(0));
 pen.addEventListener("mouseover", () => hoveredButton(0));
@@ -165,7 +182,7 @@ ligthen.addEventListener("mouseout", () => exitButton(3));
 erase.addEventListener("click", () => clickedButton(4));
 erase.addEventListener("mouseover", () => hoveredButton(4));
 erase.addEventListener("mouseout", () => exitButton(4));
-clear.addEventListener("click", () => clearGrid());
+clear.addEventListener("click", () => clearGrid(gridSize.value));
 clear.addEventListener("mouseover", () => clear.style.backgroundColor = "#b1b1b1");
 clear.addEventListener("mouseout", () => clear.style.backgroundColor = "#ffffff");
 toggle.addEventListener("click", () => {
@@ -173,14 +190,14 @@ toggle.addEventListener("click", () => {
         toggle.style.backgroundColor = "#ffffff";
         toggle.style.border = "2px solid #121212";
         toggle.style.color = "#121212";
-        toggleGridLines(false);
+        toggleGridLines(false, gridSize.value);
         toggle_grid = false;
     }
     else {
         toggle.style.backgroundColor = "#121212";
         toggle.style.border = "2px solid #ffffff";
         toggle.style.color = "#ffffff"; 
-        toggleGridLines(true);
+        toggleGridLines(true, gridSize.value);
         toggle_grid = true;
     }
 });
@@ -200,5 +217,8 @@ toggle.addEventListener("mouseout", () => {
         toggle.style.backgroundColor = "#ffffff";
     }
 });
+gridSize.addEventListener("input", () => gridLabel.textContent = "Grid Size: " + gridSize.value + " x " + gridSize.value);
+gridSize.addEventListener("change", () => createGrid(gridSize.value));
 
+createGrid(gridSize.value);
 pen.click();
