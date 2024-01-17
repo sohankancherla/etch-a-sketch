@@ -106,3 +106,17 @@ input[type='range']::-webkit-slider-thumb {
     width: 700px;
     height: 700px;
 }
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: #ffffff;
+    text-align: center;
+    font-family: Inter, sans-serif;
+ } 
+
+ a {
+    text-decoration: none;
+    color: #ffffff;
+ }
